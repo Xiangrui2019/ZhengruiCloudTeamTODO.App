@@ -5,5 +5,14 @@
 </ion-header>
 
 <ion-content padding>
-
+  <h1 style="text-align: center">请登录您的账户!</h1>
+  <p style="text-align: center">请输入您的服务器地址以及用户名密码, 进行登录!</p>
+  <p style="text-align: center">如果没有反应, 可能是您的服务器地址或者跨域出现问题!</p>
+  <ul *ngFor="let error of errormessages">
+    <li style="color: red">{{error}}</li>
+  </ul>
+  <ion-input placeholder="请输入服务器地址" clearInput [(ngModel)]="serverurl"></ion-input>
+  <ion-input placeholder="请输入电子邮件" clearInput [(ngModel)]="username" inputmode="email"></ion-input>
+  <ion-input placeholder="请输入密码" inputmode="password" clearInput [(ngModel)]="password"></ion-input>
+  <ion-button expand="block" (click)="login()">登录</ion-button>
 </ion-content>
