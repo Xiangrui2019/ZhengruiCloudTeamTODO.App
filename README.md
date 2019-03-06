@@ -1,0 +1,2 @@
+# ZhengruiCloudTeamTODO.App
+团队协作TODO软件的手机电脑和PWA版本，本代码分支的PWA版本会在发布时合并到Server代码库.
