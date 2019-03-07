@@ -3,9 +3,30 @@
     <ion-title>
       TODO
     </ion-title>
+    <ion-buttons slot="end">
+        <ion-button href="/addtodo">
+            <ion-icon name="add-circle"></ion-icon>
+        </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content padding>
+  <ion-list *ngFor="let item of ncompletetodo">
+    <ion-item>
+      <ion-button (click)="complate(item['tid'])" slot="end">
+        <ion-icon name="checkmark-circle-outline" color="light"></ion-icon>
+      </ion-button>
+      <ion-label>{{item["content"]}}</ion-label>
+    </ion-item>
+  </ion-list>
+  <p style="font-size: 20px">已完成:</p>
+  <ion-list *ngFor="let item of completetodo">
+    <ion-item>
+        <ion-button (click)="uncomplate(item['tid'])" color="success" slot="end">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+      <ion-label style="text-decoration: line-through; color: #C0C0C0;">{{item["content"]}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

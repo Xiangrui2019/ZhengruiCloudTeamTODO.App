@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { $ } from 'jquery';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,10 @@ export class LoginPage implements OnInit {
       localStorage.getItem("serverurl") != null) {
       this.router.navigate(["/"]);
     }
+
+    if (localStorage.getItem("serverurl") != null){
+      this.serverurl = localStorage.getItem("serverurl");
+    }
   }
 
   login() {
@@ -32,7 +37,8 @@ export class LoginPage implements OnInit {
     loginrx.subscribe((data) => {
       this.errormessages = [];
       if (data["err_code"] == "0") {
-        
+        this.save(data);
+        this.router.navigate(["/"]);
       } else {
         if (data["err_code"] == 10001) {
           this.adderror("您的用户名或密码出现错误!");
@@ -45,6 +51,17 @@ export class LoginPage implements OnInit {
     }, (error) => {
       this.adderror("出现了未知错误, 可能是服务器或者跨域问题!");
     });
+  }
+  private save(data: Object) {
+    localStorage.setItem("serverurl", `${this.serverurl}`);
+    localStorage.setItem("token", data["data"]["token"]);
+    localStorage.setItem("uid", data["data"]["uid"]);
+    localStorage.setItem("uname", data["data"]["uname"]);
+    localStorage.setItem("email", data["data"]["email"]);
+    localStorage.setItem("level", data["data"]["level"]);
+    localStorage.setItem("islogin", "true");
+    this.username = "";
+    this.password = "";
   }
 
   private adderror(error: string) {

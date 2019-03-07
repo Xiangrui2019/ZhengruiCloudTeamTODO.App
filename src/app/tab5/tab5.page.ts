@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab5',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab5Page implements OnInit {
 
-  constructor() { }
+  public username: string = localStorage.getItem("uname");
+
+  constructor(private router: Router) {  }
 
   ngOnInit() {
+    if (localStorage.getItem("islogin") != "true" || localStorage.getItem("token") == null) {
+      this.router.navigate(["/login"]);
+    }
   }
 
+  logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("uid");
+    localStorage.removeItem("uname");
+    localStorage.removeItem("email");
+    localStorage.removeItem("level");
+    localStorage.setItem("islogin", "false");
+    this.router.navigate(["/login"]);
+  }
 }
